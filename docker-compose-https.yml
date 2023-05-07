@@ -20,6 +20,14 @@ services:
     volumes:
       - static:/vol/static
       - frontend:/var/www/frontend
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot/:ro
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./certbot/www/:/var/www/certbot/:rw
 
 networks:
   gq_network:
