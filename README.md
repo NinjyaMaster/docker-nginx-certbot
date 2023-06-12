@@ -69,9 +69,6 @@ A basic sample of setting up React, NGINX, and Certbot in a Docker container:
   </ol>
 </details>
 
-<!-- 
-<li><a href="#acknowledgments">Acknowledgments</a></li>
--->
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -104,18 +101,43 @@ Before you start with the project setup, there are some prerequisites that you n
 #### SSL/TLS Certificates
 
 This project requires SSL/TLS certificates to be under the /etc/letsencrypt directory of your machine. The certificate files specifically needed are fullchain.pem and privkey.pem. These files are essential for setting up a secure HTTPS connection for your web application.
-<!-- 
+
+* Update your package lists for upgrades and new package
+  ```sh
+  sudo apt-get update
+  ```
+
 * Install certbot
   ```sh
-  sudo apt install certbot python3-certbot-nginx
+  sudo apt-get install certbot
   ```
- * Obtaining an SSL Certificate
+* Obtaining an SSL Certificate
   ```sh
   sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
   ```
-Please ensure that you replace yourdomain.com with your actual domain name.
--->
-After successful verification, Certbot will store the fullchain.pem and privkey.pem files in the /etc/letsencrypt/live/yourdomain.com/ directory
+* Close any servers running on port 80:
+  If you're running Apache
+  ```sh
+  sudo service apache2 stop
+  ```
+  If you're running Nginx
+  ```sh
+  sudo service nginx stop
+  ```
+
+* Run Certbot in Standalone mode:
+  ```sh
+  sudo certbot certonly --standalone
+  ```
+
+* Cert files location:
+  If everything was successful, your certificate and key will be generated and placed in the following directory:
+  ```sh
+  /etc/letsencrypt/live/your-domain-name/
+  ```
+  where your-domain-name is the domain for which you've received the certificate.
+
+
 
 
 ### Installation
@@ -160,18 +182,6 @@ Project Link: [https://github.com/NinjyaMaster/docker-nginx-certbot-react](https
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-<!-- 
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
--->
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
